@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GV Guincho 24h - Auto Socorro Profissional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #DC143C;
+            --secondary: #FF6B35;
+            --accent: #FFD700;
+            --dark: #1a1a1a;
+            --light: #FFFFFF;
+            --gray: #F5F5F5;
+            --text: #333333;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: var(--light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: var(--light);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-box {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text h1 {
+            font-size: 20px;
+            color: var(--text);
+        }
+
+        .logo-text p {
+            font-size: 10px;
+            color: var(--primary);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .cta-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .cta-button:hover {
+            background-color: #b01030;
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(220, 20, 60, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(220, 20, 60, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .hero-text h1 .highlight-red {
+            color: var(--primary);
+        }
+
+        .hero-text h1 .highlight-orange {
+            color: var(--secondary);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #ccc;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #b01030;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(220, 20, 60, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ffc700;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .hero-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInRight 0.6s ease-out;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title .highlight {
+            color: var(--primary);
+        }
+
+        .title-underline {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #f9f9f9 0%, var(--gray) 100%);
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 12px 30px rgba(220, 20, 60, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:nth-child(1) .service-icon {
+            background-color: rgba(220, 20, 60, 0.1);
+            color: var(--primary);
+        }
+
+        .service-card:nth-child(2) .service-icon {
+            background-color: rgba(255, 107, 53, 0.1);
+            color: var(--secondary);
+        }
+
+        .service-card:nth-child(3) .service-icon {
+            background-color: rgba(255, 215, 0, 0.1);
+            color: var(--accent);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Coverage Section */
+        .coverage {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: var(--light);
+        }
+
+        .coverage-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .coverage-image {
+            order: -1;
+        }
+
+        .coverage-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .coverage-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .coverage-text p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        .location-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .location-item:nth-child(1) .location-icon {
+            background-color: var(--primary);
+        }
+
+        .location-item:nth-child(2) .location-icon {
+            background-color: var(--secondary);
+        }
+
+        .location-item:nth-child(3) .location-icon {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+
+        .location-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .location-text p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin: 0;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--light);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-light {
+            background-color: var(--light);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-light:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--light);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--light);
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--light);
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0d0d0d;
+            color: #999;
+            padding: 3rem 0 1rem;
+            border-top: 4px solid var(--primary);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .coverage-content {
+                grid-template-columns: 1fr;
+            }
+
+            .coverage-image {
+                order: 0;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .logo-text {
+                display: none;
+            }
+
+            .cta-button {
+                font-size: 12px;
+                padding: 0.6rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-box">GV</div>
+                    <div class="logo-text">
+                        <h1>GV Guincho</h1>
+                        <p>24 HORAS</p>
+                    </div>
+                </div>
+                <a href="https://wa.me/5527995993430" target="_blank" rel="noopener noreferrer" class="cta-button">
+                    📱 (27) 99599-3430
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">⚡ ATENDIMENTO IMEDIATO 24/7</div>
+                    <h1>Guincho <span class="highlight-red">Rápido</span> e <span class="highlight-orange">Seguro</span></h1>
+                    <p>Auto socorro 24 horas para motos e carros em Vila Velha, Vitória, Cariacica, Serra, Viana e região. Atendimento profissional, rápido e confiável.</p>
+                    <div class="hero-buttons">
+                        <a href="https://wa.me/5527995993430" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                            📞 Chamar Agora
+                        </a>
+                        <a href="https://adrianobloureiro-star.github.io/GV-Guincho-24-horas/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                            Calcular Frete →
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number" style="color: var(--primary);">24h</div>
+                            <div class="stat-label">Disponível</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" style="color: var(--secondary);">5+</div>
+                            <div class="stat-label">Cidades</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" style="color: var(--accent);">5min</div>
+                            <div class="stat-label">Resposta</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="hero-guincho-24h.png" alt="GV Guincho 24h em ação">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nossos <span class="highlight">Serviços</span></h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Auto Socorro 24h</h3>
+                    <p>Guincho para motos e carros com atendimento imediato. Resposta rápida em toda a região.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3>Guincho Particular</h3>
+                    <p>Atendimento rápido e seguro com profissionais experientes. Cuidado máximo com seu veículo.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🕐</div>
+                    <h3>Reboque 24h</h3>
+                    <p>Serviço de reboque automotivo disponível a qualquer hora. Sempre perto de você.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coverage Section -->
+    <section class="coverage">
+        <div class="container">
+            <div class="coverage-content">
+                <div class="coverage-image">
+                    <img src="service-coverage-area.png" alt="Área de cobertura GV Guincho">
+                </div>
+                <div class="coverage-text">
+                    <h2>Área de <span class="highlight-orange">Cobertura</span></h2>
+                    <p>Atendemos toda a região da Grande Vitória com rapidez e segurança.</p>
+                    <div class="location-item">
+                        <div class="location-icon">📍</div>
+                        <div class="location-text">
+                            <h4>Vila Velha</h4>
+                            <p>Bairro Vila Nova</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-icon">📍</div>
+                        <div class="location-text">
+                            <h4>Vitória</h4>
+                            <p>Centro e região</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-icon">📍</div>
+                        <div class="location-text">
+                            <h4>Cariacica</h4>
+                            <p>E região metropolitana</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-icon">📍</div>
+                        <div class="location-text">
+                            <h4>Serra</h4>
+                            <p>Atendimento completo</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-icon">📍</div>
+                        <div class="location-text">
+                            <h4>Viana</h4>
+                            <p>Atendimento completo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Precisa de Guincho Agora?</h2>
+                <p>Estamos disponíveis 24 horas por dia, 7 dias por semana. Resposta rápida e profissional garantida.</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/5527995993430" target="_blank" rel="noopener noreferrer" class="btn-light">
+                        📞 Chamar Agora
+                    </a>
+                    <a href="https://instagram.com/gvguincho" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                        Instagram →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                        <div class="logo-box" style="width: 40px; height: 40px;">GV</div>
+                        <h4 style="margin: 0;">GV Guincho 24h</h4>
+                    </div>
+                    <p>Atendimento rápido, seguro e profissional para sua tranquilidade.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p><strong>WhatsApp:</strong> <a href="https://wa.me/5527995993430">(27) 99599-3430</a></p>
+                    <p><strong>Instagram:</strong> <a href="https://instagram.com/gvguincho">@GVGuincho</a></p>
+                    <p><strong>Localização:</strong> Vila Velha - ES</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Horário</h4>
+                    <p><strong>Funcionamento:</strong> 24 horas</p>
+                    <p style="color: var(--primary); font-weight: bold;">Disponível 24/7 - Todos os dias</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 GV Guincho 24h. Todos os direitos reservados. | Desenvolvido com ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
